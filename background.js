@@ -1,4 +1,9 @@
-var QRError;
+var scanError;
+var loginStatus = "UNLOGGED";
+
+function getLoginStatus() {
+    return loginStatus;
+}
 
 function validateQR(QRLink) {
     try {
@@ -11,20 +16,30 @@ function validateQR(QRLink) {
 }
 
 function requestScan() {
-    let positiveResponse = false;
+    let positiveResponse = false
     console.log("popup requested page scan");
+    loginStatus = "LOADING";
+
     chrome.tabs.query({active: true}, (tabs) => {
 
         for (let tab of tabs) {
             console.log(tab.id);
-            chrome.tabs.sendMessage(tab.id, 1, (response) => {
+            chrome.tabs.sendMessage(tab.id, "QR_REQUEST", (response) => {
                 if (!chrome.runtime.lastError) {
                     if (response.QRLink) {
                         console.log(response.QRLink);
                         positiveResponse = true;
                     }
                 }
+
+                if (!positiveResponse) {
+                    console.log("scan error");
+                    loginStatus = "UNLOGGED";
+                    setTimeout(scanError, 2000);
+                }
             });
         }
+
     });
+
 }

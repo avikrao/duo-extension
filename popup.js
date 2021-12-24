@@ -1,51 +1,39 @@
 const scanButton = document.querySelector(".scan-button");
+const loadingDiv = document.querySelector(".loading");
+const scanErrorText = document.querySelector(".scan-error");
 var backgroundPage;
 
-scanButton.addEventListener("click", async () =>{
-    await chrome.runtime.getBackgroundPage((bgpage) => {
-        backgroundPage = bgpage;
-    });
-    backgroundPage.requestScan();
-});
+chrome.runtime.getBackgroundPage((backgroundPage) => {
 
-// const img = document.querySelector(".qr-entry-submit-icon");
-// const input = document.querySelector(".qr-entry-input");
-
-// img.addEventListener("mouseover", () => {
-//     img.setAttribute("src", "arrow-green.png");
-// });
-
-// img.addEventListener("mouseout", () => {
-//     img.setAttribute("src", "arrow-white.png");
-// });
-
-function catchQRError(error) {
-    if (error == 1) {
-        input.style.borderColor = "red";
-        let invalidLinkMessage = document.querySelector("#incorrect-qr-url");
-        invalidLinkMessage.removeAttribute("hidden");
+    backgroundPage.scanError = () => {
+        loadingDiv.style.display = "none";
+        scanErrorText.removeAttribute("hidden");
     }
-}
 
-async function sendToBackground(QRLink) {
-    let backgroundWindow = await chrome.runtime.getBackgroundPage();
-    backgroundWindow.QRError = catchQRError;
-    backgroundWindow.validateQR(QRLink);
-}
+    var loginStatus = backgroundPage.getLoginStatus();
 
-// img.addEventListener("click", async () => {
-//     let QRLink = document.querySelector(".qr-entry-input").value;
-//     sendToBackground(QRLink);
-// });
+    if (loginStatus === 'UNLOGGED') {
+        loadingDiv.style.display = "none";
+    }
 
-// input.addEventListener("keydown", (key) => {
-//     if (key.keyCode == 13) {
-//         let QRLink = document.querySelector(".qr-entry-input").value;
-//         sendToBackground(QRLink);
-//     }
-// });
+    scanButton.addEventListener("click", async () => {
+        loadingDiv.style.display = "block";
+        backgroundPage.requestScan();
+    });
 
+    function catchQRError(error) {
+        if (error == 1) {
+            input.style.borderColor = "red";
+            let invalidLinkMessage = document.querySelector("#incorrect-qr-url");
+            invalidLinkMessage.removeAttribute("hidden");
+        }
+    }
 
+    async function sendToBackground(QRLink) {
+        let backgroundWindow = await chrome.runtime.getBackgroundPage();
+        backgroundWindow.QRError = catchQRError;
+        backgroundWindow.validateQR(QRLink);
+    }
 
-
+});
 

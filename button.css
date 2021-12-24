@@ -5,6 +5,35 @@ html {
     justify-content: center;
 }
 
+.loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #1E2326;
+    opacity: 1;
+    display: block;
+    justify-content: center;
+    align-self: center;
+    /* border: 1px solid red; */
+}
+
+.loading-ring {
+    color: white;
+    width: 10%;
+    /* border: 1px solid yellow; */
+    margin-left: 45%;
+    margin-right: 45%;
+    border: 1px solid yellow;
+}
+
+.loading-img {
+    vertical-align: top;
+    height: 70px;
+    width: 70px;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
 #title-h1 {
     background: linear-gradient(to left, white, #6BBF4E, white);
     color: white;
@@ -120,4 +149,11 @@ html {
 .scan-button:hover {
     cursor: pointer;
     border-color: #6BBF4E;
+}
+
+.scan-error {
+    color: red;
+    font-size: 1em;
+    margin-left: 11%;
+    margin-right: 11%;
 }

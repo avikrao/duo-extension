@@ -10,26 +10,35 @@
   </head>
   <body>
     <header class="main-div">
-      <div class="title-div">
-        <h1 id="title-h1">Duo Extension</h1>
-      </div>
-      <div class="entrance-box">
-        <button class="setup-instr-button">Setup Instructions</button>
-        <!-- <div class="qr-align-div">
-          <input 
-            type="text" 
-            class="qr-entry-input" 
-            placeholder="Enter QR link">
-          </input>
-          <button class="qr-entry-submit">
-            <img
-              class="qr-entry-submit-icon"
-              src="arrow-white.png">                
-            </img>
-          </button>
+
+      
+      <div class="real-body">
+        <div class="title-div">
+          <h1 id="title-h1">Duo Extension</h1>
         </div>
-        <p id="incorrect-qr-url" hidden>Invalid URL.</p> -->
-        <button class="scan-button">Scan Page for Duo QR</button>
+        <div class="entrance-box">
+          <div class="loading" hidden>
+            <img src="loading.svg" class="loading-img"></img>
+            
+          </div>
+          <button class="setup-instr-button">Setup Instructions</button>
+          <!-- <div class="qr-align-div">
+            <input 
+              type="text" 
+              class="qr-entry-input" 
+              placeholder="Enter QR link">
+            </input>
+            <button class="qr-entry-submit">
+              <img
+                class="qr-entry-submit-icon"
+                src="arrow-white.png">                
+              </img>
+            </button>
+          </div>
+          <p id="incorrect-qr-url" hidden>Invalid URL.</p> -->
+          <button class="scan-button">Scan Page for Duo QR</button>
+          <p class="scan-error" hidden>No Duo QR link detected on the page.</p>
+        </div>
       </div>
     </header>
 
