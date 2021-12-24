@@ -6,6 +6,11 @@
     "background": {
         "scripts": ["background.js"]
     },
+    "content_scripts": [{
+        "matches": [ "*://*.duosecurity.com/*" ],
+        "js": ["content.js"],
+        "all_frames": true
+    }],
     "permissions": ["storage"],
     "browser_action": {
         "default_popup": "./popup.html"

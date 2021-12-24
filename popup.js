@@ -1,13 +1,23 @@
-const img = document.querySelector(".qr-entry-submit-icon");
-const input = document.querySelector(".qr-entry-input");
+const scanButton = document.querySelector(".scan-button");
+var backgroundPage;
 
-img.addEventListener("mouseover", () => {
-    img.setAttribute("src", "arrow-green.png");
+scanButton.addEventListener("click", async () =>{
+    await chrome.runtime.getBackgroundPage((bgpage) => {
+        backgroundPage = bgpage;
+    });
+    backgroundPage.requestScan();
 });
 
-img.addEventListener("mouseout", () => {
-    img.setAttribute("src", "arrow-white.png");
-});
+// const img = document.querySelector(".qr-entry-submit-icon");
+// const input = document.querySelector(".qr-entry-input");
+
+// img.addEventListener("mouseover", () => {
+//     img.setAttribute("src", "arrow-green.png");
+// });
+
+// img.addEventListener("mouseout", () => {
+//     img.setAttribute("src", "arrow-white.png");
+// });
 
 function catchQRError(error) {
     if (error == 1) {
@@ -18,22 +28,22 @@ function catchQRError(error) {
 }
 
 async function sendToBackground(QRLink) {
-    let backgroundWindow = await browser.runtime.getBackgroundPage();
+    let backgroundWindow = await chrome.runtime.getBackgroundPage();
     backgroundWindow.QRError = catchQRError;
     backgroundWindow.validateQR(QRLink);
 }
 
-img.addEventListener("click", async () => {
-    let QRLink = document.querySelector(".qr-entry-input").value;
-    sendToBackground(QRLink);
-});
+// img.addEventListener("click", async () => {
+//     let QRLink = document.querySelector(".qr-entry-input").value;
+//     sendToBackground(QRLink);
+// });
 
-input.addEventListener("keydown", (key) => {
-    if (key.keyCode == 13) {
-        let QRLink = document.querySelector(".qr-entry-input").value;
-        sendToBackground(QRLink);
-    }
-});
+// input.addEventListener("keydown", (key) => {
+//     if (key.keyCode == 13) {
+//         let QRLink = document.querySelector(".qr-entry-input").value;
+//         sendToBackground(QRLink);
+//     }
+// });
 
 
 
