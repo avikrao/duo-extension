@@ -1,0 +1,100 @@
+html {
+    background-color: #1E2326;
+    font-family: "Raleway";
+    outline: none;
+    justify-content: center;
+}
+
+#title-h1 {
+    background: linear-gradient(to left, white, #6BBF4E, white);
+    color: white;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-size: 500% auto;
+    margin: 40px;
+    animation: flow 2s infinite;
+}
+
+@keyframes flow {
+    from {
+        background-position: 0%;
+    }
+
+    to {
+        background-position: 100%;
+    }
+}
+
+.entrance-box {
+    margin-bottom: 50px;
+}
+
+.setup-instr-button {
+    background-color: transparent;
+    color: white;
+    outline: none;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-size: 1em;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.setup-instr-button:hover {
+    border-color: #6BBF4E;
+    cursor: pointer;
+}
+
+.qr-entry-input {
+    background-color: transparent;
+    outline: none;
+    border: 1px solid white;
+    font-size: 0.75em;
+    font-family: "Raleway";
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    width: 75%;
+    color: white;
+    vertical-align: top;
+}
+
+.qr-entry-input:hover, .qr-entry-input:focus {
+    border-color: #6BBF4E;
+}
+
+.qr-align-div {
+    height: 1.5em;
+    padding: none;
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-bottom: 0;
+}
+
+.qr-entry-submit {
+    height: 130%;
+    /* vertical-align: top; */
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+.qr-entry-submit-icon {
+    height: 100%;
+    color: green;
+    vertical-align: top;
+    margin-top: -5px;
+    cursor: pointer;
+}
+
+#incorrect-qr-url {
+    color: red;
+    font-size: 0.75em;
+    align-self: center;
+    margin-left: 35%;
+    margin-right: 35%;
+    width: 30%;
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Duo Passcode Generator",
+    "description": "Generates HOTP Passcodes for Duo Security OAuthentication",
+    "version": "1.0",
+    "manifest_version": 2,
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "permissions": ["storage"],
+    "browser_action": {
+        "default_popup": "./popup.html"
+    }
+}

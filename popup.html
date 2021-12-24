@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="button.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;400&display=swap" rel="stylesheet"> 
+  </head>
+  <body>
+    <header class="main-div">
+      <div class="title-div">
+        <h1 id="title-h1">Duo Extension</h1>
+      </div>
+      <div class="entrance-box">
+        <button class="setup-instr-button">Setup Instructions</button>
+        <div class="qr-align-div">
+          <input 
+            type="text" 
+            class="qr-entry-input" 
+            placeholder="Enter QR link">
+          </input>
+          <button class="qr-entry-submit">
+            <img
+              class="qr-entry-submit-icon"
+              src="arrow-white.png">                
+            </img>
+          </button>
+        </div>
+        <p id="incorrect-qr-url" hidden>Invalid URL.</p>
+      </div>
+    </header>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
