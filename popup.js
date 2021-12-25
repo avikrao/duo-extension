@@ -18,10 +18,10 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
         loadingDiv.style.display = "none";
         switch (error) {
             case "NO_QR" :
-                scanErrorText.innerHTML = "No Duo QR link detected on the page.";
+                scanErrorText.textContent = "No Duo QR link detected on the page.";
                 break;
             case "INV_QR" :
-                scanErrorText.innerHTML = "QR link on page is invalid or expired.";
+                scanErrorText.textContent = "QR link on page is invalid or expired.";
                 break;
         }
         scanErrorText.removeAttribute("hidden");
@@ -46,8 +46,8 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
             return;
         }
 
-        generatedCode.innerHTML = hotpCode[0].toString();
-        countText.innerHTML = hotpCode[1].toString();
+        generatedCode.textContent = hotpCode[0].toString();
+        countText.textContent = hotpCode[1].toString();
 
         loadingDiv.style.display = "none";
         entranceBox.style.display = "none";
@@ -69,7 +69,7 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
     });
 
     generatedCode.addEventListener("click", () => {
-        navigator.clipboard.writeText(generatedCode.innerHTML);
+        navigator.clipboard.writeText(generatedCode.textContent);
         copyConfirmation.removeAttribute("hidden");
     });
 
@@ -86,8 +86,8 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
             return;
         }
 
-        generatedCode.innerHTML = hotpCode[0].toString();
-        countText.innerHTML = hotpCode[1].toString();
+        generatedCode.textContent = hotpCode[0].toString();
+        countText.textContent = hotpCode[1].toString();
 
         loadingDiv.style.display = "none";
         entranceBox.style.display = "none";
