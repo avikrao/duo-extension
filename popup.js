@@ -7,6 +7,7 @@ const generatedCode = document.querySelector(".generated-code");
 const copyConfirmation = document.querySelector(".copy-confirmation");
 const countText = document.querySelector(".count");
 const generateButton = document.querySelector(".generate-button");
+const completeScreen = document.querySelector(".scan-complete-screen");
 
 var backgroundPage;
 
@@ -28,7 +29,7 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
     backgroundPage.scanSuccess = () => {
         loadingDiv.style.display = "none";
         entranceBox.style.display = "none";
-        generationScreen.style.display = "block";
+        completeScreen.style.display = "block";
     }
 
     var loginStatus = await backgroundPage.getLoginStatus();
@@ -50,6 +51,8 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
         loadingDiv.style.display = "none";
         entranceBox.style.display = "none";
         generationScreen.style.display = "block";
+
+        backgroundPage.attemptAutofill(hotpCode[0]);
 
     }
 

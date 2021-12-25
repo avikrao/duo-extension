@@ -35,8 +35,7 @@ html {
     background-size: 500% auto;
     width: 100%;
     animation: flow 2s infinite;
-    align-self: center;
-    justify-self: center;
+    text-align: center;
 
 }
 
@@ -177,6 +176,8 @@ html {
     margin-right: 25%;
     margin-bottom: -5px;
     cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .count-text {
@@ -216,4 +217,23 @@ html {
 .generate-button:hover {
     cursor: pointer;
     border-color: #6BBF4E;
+}
+
+.complete-text {
+    color: white;
+    text-align: center;
+    width: 100%;
+}
+
+.complete-check {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50px;
+}
+
+.scan-complete-screen {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    display: none;
 }

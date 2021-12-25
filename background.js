@@ -109,7 +109,7 @@ function requestScan() {
     chrome.tabs.query({active: true}, (tabs) => {
 
         for (let tab of tabs) {
-            chrome.tabs.sendMessage(tab.id, "QR_REQUEST", (response) => {
+            chrome.tabs.sendMessage(tab.id, {"request": "QR_REQUEST"}, (response) => {
                 if (!chrome.runtime.lastError) {
                     if (response.QRLink) {
                         positiveResponse = true;
@@ -121,10 +121,24 @@ function requestScan() {
                     console.log("scan error");
                     loginStatus = "UNLOGGED";
                     setTimeout(() => scanError("NO_QR"), 2000);
+                    return;
                 }
             });
         }
 
     });
 
+}
+
+function attemptAutofill(code) {
+    chrome.tabs.query({active: true}, (tabs) => {
+        for (let tab of tabs) {
+            chrome.tabs.sendMessage(
+                tab.id, 
+                {"request": "AUTOFILL", "code": code}, 
+                (response) => {
+                    console.log(response);
+            })
+        }
+    });
 }
