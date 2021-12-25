@@ -1,6 +1,6 @@
 {
     "name": "Duo Passcode Generator",
-    "description": "Generates HOTP Passcodes for Duo Security OAuthentication",
+    "description": "Generates HOTP Passcodes for Duo Security Multi-Factor Authentication",
     "version": "1.0",
     "manifest_version": 2,
     "background": {
