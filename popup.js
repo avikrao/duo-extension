@@ -1,3 +1,4 @@
+const setupButton = document.querySelector(".setup-instr-button");
 const scanButton = document.querySelector(".scan-button");
 const loadingDiv = document.querySelector(".loading");
 const scanErrorText = document.querySelector(".scan-error");
@@ -55,6 +56,12 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
         backgroundPage.attemptAutofill(hotpCode[0]);
 
     }
+
+    setupButton.addEventListener("click", () => {
+        chrome.tabs.create({
+            url: "https://github.com/AvikRao/duo-extension/wiki/Setup-and-Usage"
+        });
+    });
 
     scanButton.addEventListener("click", async () => {
         loadingDiv.style.display = "block";
