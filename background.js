@@ -137,7 +137,9 @@ function attemptAutofill(code) {
                 tab.id, 
                 {"request": "AUTOFILL", "code": code}, 
                 (response) => {
-                    console.log(response);
+                    if (!chrome.runtime.lastError) {
+                        console.log(response);
+                    }
             })
         }
     });
