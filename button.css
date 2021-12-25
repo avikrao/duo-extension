@@ -161,11 +161,7 @@ html {
 }
 
 .generation-screen {
-
-}
-
-.generated-box {
-    
+    display: none;
 }
 
 .generated-code {

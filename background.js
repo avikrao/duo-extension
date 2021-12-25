@@ -9,10 +9,8 @@ async function getLoginStatus() {
     const waitForStorage = new Promise((resolve, reject) => {
         chrome.storage.local.get(["key", "count"], (items) => {
             if (!Object.keys(items).length) {
-                console.log("unlogged");
                 loginStatus = "UNLOGGED";
             } else {
-                console.log("LOGGED!");
                 loginStatus = "LOGGED";
             }
             resolve();
@@ -21,6 +19,37 @@ async function getLoginStatus() {
 
     await waitForStorage;
     return loginStatus;
+}
+
+async function generateHOTP() {
+
+    if (loginStatus != "LOGGED") {
+        return -1;
+    }
+
+    let key, count;
+    const waitForStorage = new Promise((resolve, reject) => {
+        chrome.storage.local.get(["key", "count"], (items) => {
+            if (!Object.keys(items).length) {
+                loginStatus = "UNLOGGED";
+            } else {
+                key = items["key"];
+                count = items["count"];
+            }
+            resolve();
+        });
+    });
+
+    await waitForStorage;
+
+    if (loginStatus != "LOGGED") {
+        return -1;
+    }
+
+    count++;
+    chrome.storage.local.set({"count": count});
+
+    return [hotp.getOtp(key, count), count];
 }
 
 async function processQR(QRLink) {
