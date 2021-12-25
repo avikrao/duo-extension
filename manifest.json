@@ -4,7 +4,7 @@
     "version": "1.0",
     "manifest_version": 2,
     "background": {
-        "scripts": ["background.js", "jsOTP.min.js"]
+        "scripts": ["background.js"]
     },
     "content_scripts": [{
         "matches": [ "*://*.duosecurity.com/*" ],
@@ -16,8 +16,8 @@
         "default_popup": "./popup.html"
     },
     "icons": {
-        "16": "icon16.png",
-        "48": "icon48.png",
-        "128": "icon128.png"
+        "16": "./assets/icons/icon16.png",
+        "48": "./assets/icons/icon48.png",
+        "128": "./assets/icons/icon128.png"
     }
 }
