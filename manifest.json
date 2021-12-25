@@ -4,14 +4,14 @@
     "version": "1.0",
     "manifest_version": 2,
     "background": {
-        "scripts": ["background.js"]
+        "scripts": ["background.js", "jsOTP.min.js"]
     },
     "content_scripts": [{
         "matches": [ "*://*.duosecurity.com/*" ],
         "js": ["content.js"],
         "all_frames": true
     }],
-    "permissions": ["storage"],
+    "permissions": ["storage", "https://*/"],
     "browser_action": {
         "default_popup": "./popup.html"
     }

@@ -17,21 +17,13 @@ html {
     /* border: 1px solid red; */
 }
 
-.loading-ring {
-    color: white;
-    width: 10%;
-    /* border: 1px solid yellow; */
-    margin-left: 45%;
-    margin-right: 45%;
-    border: 1px solid yellow;
-}
-
 .loading-img {
     vertical-align: top;
     height: 70px;
     width: 70px;
     margin-left: 40%;
     margin-right: 40%;
+    margin-top: 15px;
 }
 
 #title-h1 {

@@ -1,11 +1,28 @@
-var scanError;
+var scanError, scanSuccess;
 var loginStatus = "UNLOGGED";
+var hotp;
 
-function getLoginStatus() {
+async function getLoginStatus() {
+
+    hotp = new jsOTP.hotp();
+
+    const waitForStorage = new Promise((resolve, reject) => {
+        chrome.storage.local.get(["key", "count"], (items) => {
+            if (!Object.keys(items).length) {
+                loginStatus = "UNLOGGED";
+            } else {
+                console.log("LOGGED!");
+                loginStatus = "LOGGED";
+            }
+            resolve();
+        });
+    });
+
+    await waitForStorage;
     return loginStatus;
 }
 
-function processQR(QRLink) {
+async function processQR(QRLink) {
     // console.log(QRLink);
     const QRUrl = new URL(QRLink),
         query = new URLSearchParams(QRUrl.search),
@@ -27,6 +44,33 @@ function processQR(QRLink) {
 
     activation_url = `https://${host}/push/v2/activation/${code}`;
     console.log(activation_url);
+
+    const activate = await fetch(activation_url, {method: 'POST'});
+    const activationData = await activate.json();
+
+    console.log(activationData);
+
+    if (activationData["stat"] === "FAIL" ||
+        !activationData["response"]["hotp_secret"]) {
+        loginStatus = "UNLOGGED";
+        scanError("INV_QR");
+        return;
+    }
+
+    const secret = activationData["response"]["hotp_secret"];
+    console.log(secret);
+
+    if (!secret) {
+        loginStatus = "UNLOGGED";
+        scanError("INV_QR");
+        return;
+    }
+
+    chrome.storage.local.set({"key": secret, "count": 0}, () => {
+        loginStatus = "LOGGED";
+        scanSuccess();
+    });
+
 }
 
 function requestScan() {
@@ -46,7 +90,7 @@ function requestScan() {
                 if (!positiveResponse) {
                     console.log("scan error");
                     loginStatus = "UNLOGGED";
-                    setTimeout(scanError, 2000);
+                    setTimeout(() => scanError("NO_QR"), 2000);
                 }
             });
         }
