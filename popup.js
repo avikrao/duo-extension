@@ -1,6 +1,10 @@
 const scanButton = document.querySelector(".scan-button");
 const loadingDiv = document.querySelector(".loading");
 const scanErrorText = document.querySelector(".scan-error");
+const entranceBox = document.querySelector(".entrance-box");
+const generatedCode = document.querySelector(".generated-code");
+const copyConfirmation = document.querySelector(".copy-confirmation");
+
 var backgroundPage;
 
 chrome.runtime.getBackgroundPage(async (backgroundPage) => {
@@ -24,13 +28,21 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
 
     var loginStatus = await backgroundPage.getLoginStatus();
 
-    if (loginStatus === "UNLOGGED" || loginStatus === "LOGGED") {
+    if (loginStatus === "UNLOGGED" ) {
         loadingDiv.style.display = "none";
+    } else if (loginStatus === "LOGGED") {
+        loadingDiv.style.display = "none";
+        entranceBox.style.display = "none";
     }
 
     scanButton.addEventListener("click", async () => {
         loadingDiv.style.display = "block";
         backgroundPage.requestScan();
+    });
+
+    generatedCode.addEventListener("click", () => {
+        navigator.clipboard.writeText(generatedCode.innerHTML);
+        copyConfirmation.removeAttribute("hidden");
     });
 
 });

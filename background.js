@@ -9,6 +9,7 @@ async function getLoginStatus() {
     const waitForStorage = new Promise((resolve, reject) => {
         chrome.storage.local.get(["key", "count"], (items) => {
             if (!Object.keys(items).length) {
+                console.log("unlogged");
                 loginStatus = "UNLOGGED";
             } else {
                 console.log("LOGGED!");

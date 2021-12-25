@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;400&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet"> 
   </head>
   <body>
     <header class="main-div">
@@ -22,22 +24,18 @@
             
           </div>
           <button class="setup-instr-button">Setup Instructions</button>
-          <!-- <div class="qr-align-div">
-            <input 
-              type="text" 
-              class="qr-entry-input" 
-              placeholder="Enter QR link">
-            </input>
-            <button class="qr-entry-submit">
-              <img
-                class="qr-entry-submit-icon"
-                src="arrow-white.png">                
-              </img>
-            </button>
-          </div>
-          <p id="incorrect-qr-url" hidden>Invalid URL.</p> -->
           <button class="scan-button">Scan Page for Duo QR</button>
           <p class="scan-error" hidden>No Duo QR link detected on the page.</p>
+        </div>
+        <div class="generation-screen">
+          <div class="generated-box">
+            <h1 class="generated-code">123456</h1>
+            <p class="copy-confirmation" hidden>Copied to clipboard.</p>
+            <p class="count-text">Count: 0</p>
+          </div>
+          <div class="generate-button-div">
+            <button class="generate-button">Generate new code</button>
+          </div>
         </div>
       </div>
     </header>
