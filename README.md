@@ -1,9 +1,10 @@
 # duo-extension
-Browser extension for generating HOTP passcodes for Duo Security OAuthentication.
+Browser extension for generating HOTP passcodes for Duo Security multi-factor authentication.
+
 Compatible with Firefox and Chromium-based browsers (Chrome, Edge, etc.)
 
 # Setup
-1. Once you've installed the extension, navigate to your Duo OAuthentication portal/page.
+1. Once you've installed the extension, sign in to your service and navigate to your Duo multi-factor authentication portal/page.
 
 ![enter image description here](https://i.imgur.com/ZOILCzR.png)
 
@@ -37,7 +38,7 @@ Compatible with Firefox and Chromium-based browsers (Chrome, Edge, etc.)
 
 # Usage
 
-1. Using the extension after setup is very simple. Navigate to your OAuthentication portal when you wish to log in.
+1. Using the extension after setup is very simple. Sign in to your intended service and navigate to your multi-factor authentication portal when you wish to log in.
 
 ![enter image description here](https://i.imgur.com/skbPQC1.png)
 
@@ -51,7 +52,7 @@ Compatible with Firefox and Chromium-based browsers (Chrome, Edge, etc.)
 
 ![enter image description here](https://i.imgur.com/DdonWgC.png)
 
-2. Paste the code into Passcode authentication option and press "Log In". 
+2. Paste the code into the Passcode authentication option and press "Log In". 
 
 ![enter image description here](https://i.imgur.com/BFyRMxC.png)
 
