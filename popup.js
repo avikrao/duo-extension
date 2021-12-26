@@ -10,7 +10,7 @@ const countText = document.querySelector(".count");
 const generateButton = document.querySelector(".generate-button");
 const completeScreen = document.querySelector(".scan-complete-screen");
 
-import { LoginStatus, getLoginStatus, generateHOTP, attemptAutofill, requestScan } from './background.js';
+import { generateHOTP, attemptAutofill, requestScan } from './background.js';
 
 export const ScanError = {
     'NO_QR': 1,
