@@ -10,52 +10,55 @@ const countText = document.querySelector(".count");
 const generateButton = document.querySelector(".generate-button");
 const completeScreen = document.querySelector(".scan-complete-screen");
 
-var backgroundPage;
+import { LoginStatus, getLoginStatus, generateHOTP, attemptAutofill, requestScan } from './background.js';
 
-chrome.runtime.getBackgroundPage(async (backgroundPage) => {
+export const ScanError = {
+    'NO_QR': 1,
+    'INV_QR': 2
+}
 
-    backgroundPage.scanError = (error) => {
-        loadingDiv.style.display = "none";
-        switch (error) {
-            case "NO_QR" :
-                scanErrorText.textContent = "No Duo QR link detected on the page.";
-                break;
-            case "INV_QR" :
-                scanErrorText.textContent = "QR link on page is invalid or expired.";
-                break;
-        }
-        scanErrorText.removeAttribute("hidden");
+export const scanError = (error) => {
+    loadingDiv.style.display = "none";
+    switch (error) {
+        case ScanError.NO_QR:
+            scanErrorText.textContent = "No Duo QR link detected on the page.";
+            break;
+        case ScanError.INV_QR:
+            scanErrorText.textContent = "QR link on page is invalid or expired.";
+            break;
     }
+    scanErrorText.removeAttribute("hidden");
+}
 
-    backgroundPage.scanSuccess = () => {
-        loadingDiv.style.display = "none";
-        entranceBox.style.display = "none";
-        completeScreen.style.display = "block";
-    }
+export const scanSuccess = () => {
+    loadingDiv.style.display = "none";
+    entranceBox.style.display = "none";
+    completeScreen.style.display = "block";
+}
 
-    var loginStatus = await backgroundPage.getLoginStatus();
+(async () => {
+    if (generatedCode === null)
+        return;
 
-    if (loginStatus === "UNLOGGED" ) {
-        loadingDiv.style.display = "none";
-    } else if (loginStatus === "LOGGED") {
-
-        let hotpCode = await backgroundPage.generateHOTP();
+    await (async() => {
+        const hotpCode = await generateHOTP();
 
         if (hotpCode === -1) {
             loadingDiv.style.display = "none";
             return;
         }
 
-        generatedCode.textContent = hotpCode[0].toString();
-        countText.textContent = hotpCode[1].toString();
+        let [code, count] = hotpCode;
+
+        generatedCode.textContent = code.toString();
+        countText.textContent = count.toString();
 
         loadingDiv.style.display = "none";
         entranceBox.style.display = "none";
         generationScreen.style.display = "block";
 
-        backgroundPage.attemptAutofill(hotpCode[0]);
-
-    }
+        await attemptAutofill(code);
+    })();
 
     setupButton.addEventListener("click", () => {
         chrome.tabs.create({
@@ -65,7 +68,7 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
 
     scanButton.addEventListener("click", async () => {
         loadingDiv.style.display = "block";
-        backgroundPage.requestScan();
+        await requestScan();
     });
 
     generatedCode.addEventListener("click", () => {
@@ -78,7 +81,7 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
         generationScreen.style.display = "none";
         loadingDiv.style.display = "block";
 
-        let hotpCode = await backgroundPage.generateHOTP();
+        const hotpCode = await generateHOTP();
 
         if (hotpCode === -1) {
             loadingDiv.style.display = "none";
@@ -86,13 +89,14 @@ chrome.runtime.getBackgroundPage(async (backgroundPage) => {
             return;
         }
 
-        generatedCode.textContent = hotpCode[0].toString();
-        countText.textContent = hotpCode[1].toString();
+        let [code, count] = hotpCode;
+
+        generatedCode.textContent = code.toString();
+        countText.textContent = count.toString();
 
         loadingDiv.style.display = "none";
         entranceBox.style.display = "none";
         generationScreen.style.display = "block";
     });
 
-});
-
+})();
