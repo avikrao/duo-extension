@@ -1,7 +1,6 @@
 let qr = document.querySelector(".qr");
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    
     if (qr && qr.currentSrc && message.request && message.request === "QR_REQUEST") {
         sendResponse({QRLink: qr.currentSrc});
     } else if (message.request && message.code && message.request === "AUTOFILL"){
