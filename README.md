@@ -3,7 +3,10 @@ Browser extension for generating HOTP passcodes for Duo Security multi-factor au
 
 Compatible with Firefox and Chromium-based browsers (Chrome, Edge, etc.)
 
-# Setup
+## Credits
+- [Yusuf Bham](https://github.com/fifty-six/) for original Python Duo HOTP secret fetch and passcode generation script. You can find this script [here](https://gist.github.com/fifty-six/80fa6f9d18952ec21253fc10d1c9d548).
+
+## Setup
 1. Once you've installed the extension, sign in to your service and navigate to your Duo multi-factor authentication portal/page.
 
 ![enter image description here](https://i.imgur.com/ZOILCzR.png)
@@ -36,7 +39,7 @@ Compatible with Firefox and Chromium-based browsers (Chrome, Edge, etc.)
 ![enter image description here](https://i.imgur.com/7Msjxky.png)
 
 
-# Usage
+## Usage
 
 1. Using the extension after setup is very simple. Sign in to your intended service and navigate to your multi-factor authentication portal when you wish to log in.
 
@@ -46,7 +49,7 @@ Compatible with Firefox and Chromium-based browsers (Chrome, Edge, etc.)
 
 ![enter image description here](https://i.imgur.com/tpSSXyI.png)
 
-# Alternative
+## Alternative
 
 1. If the extension fails to automatically log you in by now, you can try pasting in your HOTP code manually. Click on the extension icon and copy the code displayed. Clicking it will automatically copy to clipboard.
 
