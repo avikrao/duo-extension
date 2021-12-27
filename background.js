@@ -1,5 +1,5 @@
 import { scanError, scanSuccess, ScanError } from './popup.js';
-import { Hotp } from './jsOTP.js';
+import { Hotp } from './dependencies/jsOTP.js';
 
 const hotp = new Hotp();
 
