@@ -73,10 +73,33 @@ export async function processQR(QRLink) {
     console.log(code);
     console.log(host);
 
-    const activation_url = `https://${host}/push/v2/activation/${code}`;
+    const activation_url = `https://${host}/push/v2/activation/${code}?customer_protocol=1`;
     console.log(activation_url);
 
-    const activate = await fetch(activation_url, {method: 'POST'});
+    let headers = new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })
+
+    const activate = await fetch(activation_url, {
+        method: 'POST',
+        headers: headers,
+        body: new URLSearchParams({
+            'jailbroken': 'false',
+            'architecture': 'arm64',
+            'region': 'US',
+            'app_id': 'com.duosecurity.duomobile',
+            'full_disk_encryption': 'true',
+            'passcode_status': 'true',
+            'platform': 'Android',
+            'app_version': '3.49.0',
+            'app_build_number': '323001',
+            'version': '11',
+            'manufacturer': 'unknown',
+            'language': 'en',
+            'model': 'Duo Extension',
+            'security_patch_level': '2021-02-01'
+        })
+    });
     const activationData = await activate.json();
 
     console.log(activationData);
@@ -100,7 +123,6 @@ export async function processQR(QRLink) {
 }
 
 export async function requestScan() {
-    let positiveResponse = false
     let tabs = await browser().tabs.query({active: true});
 
     for (let tab of tabs) {
