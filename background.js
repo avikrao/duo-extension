@@ -144,7 +144,7 @@ export async function attemptAutofill(code) {
     for (let tab of tabs) {
         try {
             let response = await browser().tabs.sendMessage(tab.id, {"request": "AUTOFILL", code});
-            console.log(response)
+            console.log(response);
         } catch (e) {
             console.error(e);
         }

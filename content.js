@@ -1,3 +1,5 @@
+VERIFY_CLICK_TIMEOUT = 250;
+
 function waitForElm(selector) {
     return new Promise(resolve => {
       if (document.querySelector(selector)) {
@@ -48,15 +50,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             enterButton.click();
             sendResponse("success!");
         } else if (verifyButton) {
-            let codeInput = document.querySelector(".passcode-input");
-            if (!codeInput) {
-                sendResponse({error: 5});
-                return;
-            }
-            codeInput.value = message.code.toString();
-            codeInput.dispatchEvent(new Event('input', { bubbles: true }));
-            verifyButton.click();
-            sendResponse("success!");
+            waitForElm(".passcode-input").then(codeInput => {
+                codeInput.value = message.code.toString();
+                codeInput.dispatchEvent(new Event('input', { bubbles: true }));
+                setTimeout(() => {
+                    verifyButton.click();
+                    sendResponse("success!");
+                }, VERIFY_CLICK_TIMEOUT);
+            });
         } else if (otherOptionsButton) {
             otherOptionsButton.click(); 
             waitForElm("[data-testid='test-id-mobile-otp']").then(authButtonDiv => {
@@ -74,8 +75,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                     }
                     codeInput.value = message.code.toString();
                     codeInput.dispatchEvent(new Event('input', { bubbles: true }));
-                    verifyButton.click();
-                    sendResponse("success!");
+                    setTimeout(() => {
+                        verifyButton.click();
+                        sendResponse("success!");
+                    }, VERIFY_CLICK_TIMEOUT);
                 });
             })
         } else {
