@@ -25,7 +25,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         let qr = document.querySelector(".qr");
         qr = qr ? qr : document.querySelector("[data-testid='qr-code']");
         if (qr && qr.currentSrc) {
-            console.log(qr.currentSrc)
             sendResponse({QRLink: qr.currentSrc});
         }
     } else if (message.request && message.code && message.request === "AUTOFILL"){
