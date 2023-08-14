@@ -73,12 +73,34 @@ export async function processQR(QRLink) {
     console.log(code);
     console.log(host);
 
-    const activation_url = `https://${host}/push/v2/activation/${code}?customer_protocol=1`;
+    const activation_url = `https://${host}/push/v2/activation/${code}`;
     console.log(activation_url);
 
     let headers = new Headers({
         'Content-Type': 'application/x-www-form-urlencoded'
     })
+
+    /**
+     * Authorization public key generation
+     * https://stackoverflow.com/a/55188241
+     */
+    const key = await window.crypto.subtle.generateKey(
+        {
+            name: 'RSASSA-PKCS1-v1_5',
+            modulusLength: 2048, 
+            publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
+            hash: { name: 'SHA-256' }, 
+        },
+        false,
+        ['sign', 'verify']
+    );
+    const publicKey = await window.crypto.subtle.exportKey('spki', key.publicKey);
+    const keyBody = window
+        .btoa(
+            String.fromCharCode(...new Uint8Array(publicKey))
+        )
+        .match(/.{1,64}/g)
+        .join('\n');
 
     const activate = await fetch(activation_url, {
         method: 'POST',
@@ -97,7 +119,10 @@ export async function processQR(QRLink) {
             'manufacturer': 'unknown',
             'language': 'en',
             'model': 'Duo Extension',
-            'security_patch_level': '2021-02-01'
+            'security_patch_level': '2021-02-01',
+            'pubkey': `-----BEGIN PUBLIC KEY-----\n${keyBody}\n-----END PUBLIC KEY-----`,
+            'pkpush': 'rsa-sha256',
+            'customer_protocol': '1'
         })
     });
     const activationData = await activate.json();
